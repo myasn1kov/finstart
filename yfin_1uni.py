@@ -4,8 +4,12 @@ import pandas as pd
 import ta
 import datetime
 
+
+PERIOD = input('Выберите период:\n'
+    '6mo, 1mo, 5d или 1d:\n'
+    )
 # Загрузка данных курса доллара за последние 3 дня
-df = yf.download('USDRUB=X', period='1mo')
+df = yf.download('USDRUB=X', period=PERIOD)
 
 # Загрузка текущего курса доллара yfinance
 usd_data = yf.download('USDRUB=X', period='1d')
@@ -91,9 +95,13 @@ else:
 data = {'Дата': [datetime.datetime.now().strftime('%Y-%m-%d %H:%M')],
         'Курс доллара Yahoo': [f'{usd_rate_y:.2f}'],
         'Курс доллара Alpha Vantage': [f'{usd_rate_av:.2f}'],
-        'Рекомендация': [recommendation]}
+        'Рекомендация': [recommendation],
+        'Покупка': [buy_counter],
+        'Продажа': [sell_counter]}
+
 dq = pd.DataFrame(data)
-dq.to_csv('Прогнозы 1 месяц.csv',
+table_name = f'Прогнозы {PERIOD}.csv'
+dq.to_csv(table_name,
           index=False, mode='a',
-          header=not bool(open('Прогнозы 1 месяц.csv').read()))
+          header=not bool(open(table_name).read()))
 # Добавляем запись в конец существующей таблицы или создаем новую
