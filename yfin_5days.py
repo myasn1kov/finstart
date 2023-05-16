@@ -95,5 +95,5 @@ data = {'Дата': [datetime.datetime.now().strftime('%Y-%m-%d %H:%M')],
 dq = pd.DataFrame(data)
 dq.to_csv('Прогнозы 5 дней.csv',
           index=False, mode='a',
-          header=not bool(open('Прогнозы 1 день.csv').read()))
+          header=not bool(open('Прогнозы 5 дней.csv').read()))
 # Добавляем запись в конец существующей таблицы или создаем новую
